@@ -1,6 +1,6 @@
 'use client'
 
-export default function DeployButton() {
+export default function Logo() {
   return (
     <a
       className="py-2 px-3 flex rounded-md no-underline text-white bg-black transition-colors hover:bg-gray-700 border"
