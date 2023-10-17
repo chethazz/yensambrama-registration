@@ -18,6 +18,8 @@ const RegisterEvent = ({ params }: any) => {
     const rules = searchParams.get('rules')
     const rulesArray = Array.isArray(rules) ? rules : [rules];
     const parsedRules = rulesArray.map((rule) => JSON.parse(rule));
+
+    
     console.log(rulesArray)
     return (
         <div className="w-full flex flex-col items-center">
@@ -51,7 +53,7 @@ const RegisterEvent = ({ params }: any) => {
                         {parsedRules[0].map((rule: any, index: any) => (
                             <div key={index} className="w-full   last:border-b-0 text-sm">
                                 <div className=" p-3 flex items-center">
-                                    <code className="text-sm whitespace-pre-wrap text-justify"><strong>{index + 1}. </strong>{rule}</code>
+                                    <code className="text-sm whitespace-pre-wrap "><strong>{index + 1}. </strong>{rule}</code>
                                 </div>
                             </div>
                         ))}
