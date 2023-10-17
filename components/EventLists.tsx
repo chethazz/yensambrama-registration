@@ -28,9 +28,10 @@ const EventLists = () => {
     //     console.log(data)
     // }
     const getData = async () => {
-        const res = await fetch('/api/event', {
+        const res = await fetch('https://yensambrama.onrender.com/api/event', {
             cache: 'no-cache',
         })
+        console.log(res)
         const data = await res.json()
         if (data) {
             setEventList(data)
