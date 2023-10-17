@@ -6,12 +6,6 @@ import Footer from '@/components/global/Footer'
 export const dynamic = 'force-dynamic'
 
 
-const examples = [
-  { type: 'Client Components', src: 'app/_examples/client-component/page.tsx' },
-  { type: 'Server Components', src: 'app/_examples/server-component/page.tsx' },
-  { type: 'Server Actions', src: 'app/_examples/server-action/page.tsx' },
-  { type: 'Route Handlers', src: 'app/_examples/route-handler.ts' },
-]
 
 export default async function Index() {
 
@@ -39,22 +33,7 @@ export default async function Index() {
               Supabase client in all the different contexts.
             </p>
           </div>
-          <div className="w-full justify-center border rounded-lg overflow-hidden">
-            {examples.map(({ type, src }) => (
-              <div
-                key={type}
-                className="w-full grid grid-cols-3 border-b last:border-b-0 text-sm"
-              >
-                <div className="flex items-center font-bold p-4 min-h-12 w-full">
-                  {type}
-                </div>
-                <div className="col-span-2 border-l p-4 flex items-center">
-                  <code className="text-sm whitespace-pre-wrap">{src}</code>
-                </div>
-              </div>
-            ))}
           </div>
-          B</div>
         <Footer />
       </div>
     </div>

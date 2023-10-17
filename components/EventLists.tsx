@@ -30,7 +30,6 @@ const EventLists = () => {
     const getData = async () => {
         const res = await fetch('https://yensambrama.onrender.com/api/event', {
             cache: 'no-cache',
-            mode: 'no-cors',
         })
         console.log(res)
         const data = await res.json()
