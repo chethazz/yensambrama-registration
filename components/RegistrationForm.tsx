@@ -156,9 +156,30 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-5">
                 {/* <form className="space-y-8 p-5"> */}
+                {eventType !== 'Single' && (
+                    <FormField
+                        control={form.control}
+                        name={`teamName`}
+                        render={({ field }: FieldProps) => (
+                            <FormItem>
+                                <FormLabel className="text-lg">Team Name</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        className="min-w-[300px] md:min-w-[400px] lg:min-w-[500px]"
+                                        placeholder="Enter your Full Name"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                )}
                 {[...Array(teamMembers)].map((_, index) => (
                     <div key={index}>
-                        <h2 className="text-2xl font-semibold">Team Member {index + 1}</h2>
+                        {eventType !== 'Single' && (
+                            <h2 className="text-2xl font-semibold">Team Member {index + 1}</h2>
+                        )}
                         <div>
                             <FormField
                                 control={form.control}
@@ -237,6 +258,23 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name={`members.${index}.branch`}
+                                render={({ field }: FieldProps) => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg">Branch</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="min-w-[300px] md:min-w-[400px] lg:min-w-[500px]"
+                                                placeholder="CSE"
+                                                {...field}
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
