@@ -25,22 +25,9 @@ export default async function Index() {
             <EventLists />
           </div>
         </div>
-        <div className="flex flex-col gap-8 text-foreground">
-          <div className="grid gap-2 justify-center mx-auto text-center">
-            <h2 className="text-lg font-bold text-center">Examples</h2>
-            <p className="text-sm">
-              Look in the <code>_examples</code> folder to see how to create a
-              Supabase client in all the different contexts.
-            </p>
-          </div>
-          </div>
         <Footer />
       </div>
     </div>
-    // <div className="w-full flex flex-col items-center">
-    //   <div className=" flex flex-col gap-14  max-w-4xl px-3 py-16 lg:py-24">
-    //     <h1>Hi</h1>
-    //   </div>
-    // </div>
+
   )
 }

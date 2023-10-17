@@ -9,6 +9,18 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { ChangeEvent, useEffect, useState } from 'react';
 import { registrationSchema, teamMemberSchema } from '@/lib/zodSchema';
 import { useRouter } from 'next/navigation';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 type FieldProps = {
     field: {
@@ -25,8 +37,10 @@ type RegistrationFormProps = {
     eventId: string;
     eventType: string;
 };
-export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eventId, eventType }: RegistrationFormProps) => {
+export const RegistrationForm = ({ min_team_member, max_team_member, eventId, eventType }: RegistrationFormProps) => {
     const [teamMembers, setTeamMembers] = useState(min_team_member);
+    const [isOpen, setIsOpen] = useState(false);
+    const [data, setData] = useState('');
     const defaultValues: Partial<ProfileFormValues> = {
         teamName: '',
         members: Array(min_team_member).fill({
@@ -52,7 +66,7 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
 
     async function onSubmit(data: ProfileFormValues) {
         try {
-            const res = await fetch('/api/event', {
+            const res = await fetch('https://yensambrama.onrender.com/api/event', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,9 +75,8 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
             })
             if (res.status === 200) {
                 const data = await res.json();
-                alert(JSON.stringify(data, null, 2));
-                form.reset(defaultValues);
-                router.replace('/')
+                setData(data.message);
+                setIsOpen(true);
             } else {
                 const errorData = await res.json(); // Parse the error response
                 if (errorData && errorData.message) {
@@ -96,67 +109,30 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
             setTeamMembers(teamMembers - 1);
         }
     };
-    const getData = async () => {
-        const res = await fetch('/api/event', {
-            cache: 'no-cache',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}),
-        })
-        const data = await res.json()
-        console.log(data)
-    }
 
-    const handleSubmit = async () => {
-        const formData = form.getValues();
-        console.log(formData)
-        const res = await fetch('/api/test')
-        console.log(res)
-        try {
-            // await fetch('/api/event', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(formData),
-            // }).then((res) => {
-            //     console.log(res)
-            // }).catch((err) => {
-            //     console.log(err)
-            // })
 
-            // if (res.status === 200) {
-            //     const data = await res.json();
-            //     alert(JSON.stringify(data, null, 2));
-
-            //     // Clear the form values
-            //     form.reset(defaultValues);
-
-            //     // Rdirect to the home page
-            //     router.push('/'); // Import 'useRouter' from 'next/router'
-
-            // } else {
-            //     const errorData = await res.json(); // Parse the error response
-            //     if (errorData && errorData.message) {
-            //         alert('Error: ' + errorData.message); // Display the error message
-            //     } else {
-            //         console.error('Request failed with status code ' + res.status);
-            //     }
-            // }
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    useEffect(() => {
-        console.log(form.formState.errors)
-    })
     return (
         <Form {...form}>
+            <AlertDialog open={isOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogDescription>
+                            <strong>  {data}</strong> <br />
+                            Your registration has been submitted successfully. You will receive a confirmation email within 5 minutes. If you do not receive the email, please contact the program coordinators.
+                        </AlertDialogDescription>
+
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => {
+                            form.reset(defaultValues), router.replace('/')
+                        }}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-5">
                 {/* <form className="space-y-8 p-5"> */}
-                {eventType !== 'Single' && (
+                {max_team_member !== 1 && (
                     <FormField
                         control={form.control}
                         name={`teamName`}
@@ -175,9 +151,11 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
                         )}
                     />
                 )}
+
+
                 {[...Array(teamMembers)].map((_, index) => (
                     <div key={index}>
-                        {eventType !== 'Single' && (
+                        {max_team_member !== 1 && (
                             <h2 className="text-2xl font-semibold">Team Member {index + 1}</h2>
                         )}
                         <div>
@@ -268,11 +246,11 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
                                 name={`members.${index}.branch`}
                                 render={({ field }: FieldProps) => (
                                     <FormItem>
-                                        <FormLabel className="text-lg">Branch</FormLabel>
+                                        <FormLabel className="text-lg">Branch/Section</FormLabel>
                                         <FormControl>
                                             <Input
                                                 className="min-w-[300px] md:min-w-[400px] lg:min-w-[500px]"
-                                                placeholder="CSE"
+                                                placeholder="CSE/A"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -280,30 +258,31 @@ export const RegistrationForm = ({ min_team_member = 2, max_team_member = 5, eve
                                     </FormItem>
                                 )}
                             />
-                            {teamMembers > min_team_member && (
-                                <Button type="button" onClick={() => removeTeamMember(index)}>
-                                    Remove Team Member
-                                </Button>
-                            )}
+
                         </div>
                     </div>
                 ))}
 
-                {teamMembers < max_team_member && (
-                    <Button type="button" onClick={addTeamMember}>
-                        Add Team Member
-                    </Button>
-                )}
+                <div className="flex justify-between">
+                    <div className='space-x-3'>
+                        {teamMembers < max_team_member && (
+                            <Button type="button" onClick={addTeamMember}>
+                                Add
+                            </Button>
+                        )}
+                        {teamMembers > min_team_member && (
+                            <Button type="button" onClick={() => removeTeamMember(teamMembers - 1)}>
+                                Remove
+                            </Button>
+                        )}
+                    </div>
+                    <div>
+                        <Button type="submit">Submit</Button>
+                    </div>
+                </div>
 
-                {teamMembers > min_team_member && (
-                    <Button type="button" onClick={() => removeTeamMember(teamMembers - 1)}>
-                        Remove Team Member
-                    </Button>
-                )}
-
-                <Button type="submit">Submit</Button>
             </form>
-        </Form>
+        </Form >
     );
 };
 
