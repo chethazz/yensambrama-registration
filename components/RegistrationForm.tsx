@@ -17,8 +17,6 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import LoadingSpinner from './LoadingSpinner';
 
@@ -179,8 +177,7 @@ export const RegistrationForm = ({ min_team_member, max_team_member, eventId, ev
                                                     {...field}
                                                 />
                                             </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
+                                            <FormMessage />                                        </FormItem>
                                     )}
                                 />
 
@@ -193,7 +190,7 @@ export const RegistrationForm = ({ min_team_member, max_team_member, eventId, ev
                                             <FormControl>
                                                 <Input
                                                     className="min-w-[300px] md:min-w-[400px] lg:min-w-[500px]"
-                                                    placeholder="example?"
+                                                    placeholder="example@gmail.com"
                                                     {...field}
                                                 />
                                             </FormControl>
