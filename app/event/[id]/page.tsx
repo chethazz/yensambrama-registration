@@ -27,10 +27,13 @@ const RegisterEvent = ({ params }: any) => {
                         <strong>Event Details</strong>
                     </p>
                 </div>
-                <div>
-                    <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto   my-5">
-                        <strong>Event Name :  </strong> {name}
-                    </p>
+                <div className='p-5'>
+
+                    {name && (
+                        <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto   my-5">
+                            <strong>Event Name :  </strong> {name}
+                        </p>
+                    )}
                     {venue && (
                         <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto   my-5">
                             <strong>Venue :  </strong> {venue}</p>
@@ -38,11 +41,9 @@ const RegisterEvent = ({ params }: any) => {
                     {theme && (
                         <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto  my-5"><strong>Theme :  </strong> {theme}</p>
                     )}
-                    <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto   my-5">
-                        <strong>Event Name :  </strong> {name}
-                    </p>
+               
                 </div>
-                <div>
+                <div className='px-10'>
                     <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto  my-5">
                         <strong>Rules : </strong>
                     </p>
@@ -50,7 +51,7 @@ const RegisterEvent = ({ params }: any) => {
                         {parsedRules[0].map((rule: any, index: any) => (
                             <div key={index} className="w-full   last:border-b-0 text-sm">
                                 <div className=" p-3 flex items-center">
-                                    <code className="text-sm whitespace-pre-wrap"><strong>{index + 1}. </strong>{rule}</code>
+                                    <code className="text-sm whitespace-pre-wrap text-justify"><strong>{index + 1}. </strong>{rule}</code>
                                 </div>
                             </div>
                         ))}
