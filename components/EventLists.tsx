@@ -17,6 +17,7 @@ const EventLists = () => {
     const getData = async () => {
         try {
             setLoading(true)
+            // const res = await fetch('http://localhost:8000/api/event', {
             const res = await fetch('https://yensambrama.onrender.com/api/event', {
                 cache: 'no-cache',
             })

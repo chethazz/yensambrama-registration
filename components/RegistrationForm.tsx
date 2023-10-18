@@ -67,8 +67,8 @@ export const RegistrationForm = ({ min_team_member, max_team_member, eventId, ev
     async function onSubmit(data: ProfileFormValues) {
         try {
             setLoading(true)
-            const res = await fetch('http://localhost:8000/api/event', {
-            // const res = await fetch('https://yensambrama.onrender.com/api/event', {
+            // const res = await fetch('http://localhost:8000/api/event', {
+            const res = await fetch('https://yensambrama.onrender.com/api/event', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
