@@ -40,12 +40,9 @@ const EventLists = () => {
     if (error) return <div className='flex text-lg font-semibold text-red-600 justify-center h-screen items-center'>Internal Server Error. Please contact the respected team coordinators for registration</div>
     return (
         <>
-            {loading && <div
-                className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 bg-black bg-opacity-50"
-            // Adjust the background color and opacity as needed
-            >
+            {!loading &&
                 <LoadingSpinner />
-            </div>}
+            }
             {eventList && eventList?.map(({ name, image, theme, venue, rules, id, _id, eventType, min_team_members, max_team_members, student_coodinators }) => (
                 <Link
                     key={name}
