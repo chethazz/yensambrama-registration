@@ -18,8 +18,10 @@ const RegisterEvent = ({ params }: any) => {
     const rules = searchParams.get('rules')
     const rulesArray = Array.isArray(rules) ? rules : [rules];
     const parsedRules = rulesArray.map((rule) => JSON.parse(rule));
+    const student_coodinators = searchParams.get('student_coodinators')
+    const student_coodinatorsArray = Array.isArray(student_coodinators) ? student_coodinators : [student_coodinators];
+    const parsedStudentCoodinators = student_coodinatorsArray.map((rule) => JSON.parse(rule));
 
-    
     console.log(rulesArray)
     return (
         <div className="w-full flex flex-col items-center">
@@ -43,7 +45,10 @@ const RegisterEvent = ({ params }: any) => {
                     {theme && (
                         <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto  my-5"><strong>Theme :  </strong> {theme}</p>
                     )}
-               
+                    {parsedStudentCoodinators && parsedStudentCoodinators[0].map((coodinator: any, index: any) => (
+                        <p key={index} className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto  my-5"><strong>Student Coodinator {index + 1} :  </strong> {coodinator.name} - {coodinator.phone_number}</p>
+                    ))}
+
                 </div>
                 <div className='px-10'>
                     <p className="text-lg lg:text-xl text-[#151615] !leading-tight mx-auto  my-5">

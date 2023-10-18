@@ -1,6 +1,5 @@
 
 import EventLists from '@/components/EventLists'
-import Footer from '@/components/global/Footer'
 
 
 export const dynamic = 'force-dynamic'
@@ -25,7 +24,7 @@ export default async function Index() {
             <EventLists />
           </div>
         </div>
-        <Footer />
+       
       </div>
     </div>
 
