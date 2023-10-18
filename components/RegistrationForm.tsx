@@ -129,7 +129,6 @@ export const RegistrationForm = ({ min_team_member, max_team_member, eventId, ev
 
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
                             <AlertDialogAction onClick={() => {
                                 form.reset(defaultValues), router.replace('/')
                             }}>Continue</AlertDialogAction>
